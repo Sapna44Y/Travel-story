@@ -14,7 +14,8 @@ const fs = require("fs");
 const path = require("path");
 const { error } = require("console");
 
-mongoose.connect(config.connectionString);
+// mongoose.connect(config.connectionString);
+mongoose.connect(process.env.MONGO_URI);
 
 const app = express();
 app.use(express.json());
@@ -397,7 +398,8 @@ app.get("/travel-stories/filter", authenticateToken, async (req, res) => {
   }
 });
 
-app.listen(8000, () => {
-  console.log(`Server running on port 8000`);
+const PORT = process.env.PORT || 80000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
 module.exports = app;
